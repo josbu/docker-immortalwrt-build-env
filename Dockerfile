@@ -5,7 +5,7 @@ RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# 安装依赖（解决软件包冲突）
+# 安装依赖
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
     ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
@@ -27,3 +27,6 @@ RUN useradd -m user && \
 USER user
 WORKDIR /home/user
 RUN git config --global user.name "user" && git config --global user.email "user@example.com"
+
+# 这里可以添加编译 ImmortalWRT 的相关命令
+# RUN git clone https://github.com/immortalwrt/immortalwrt.git && cd immortalwrt && ./scripts/feeds update -a && ./scripts/feeds install -a
